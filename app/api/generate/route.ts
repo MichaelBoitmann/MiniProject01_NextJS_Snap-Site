@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import OpenAi from 'openai'
 
 new OpenAi({
@@ -14,15 +15,13 @@ only with the HTML file.`
 
 
 export async function POST(request: Request) {
-  const{ image } = await request.jsonOpenAi()
-
-  if (!image) {
-    return NextResponse.json("No image provided", {
-      status: 400,
-    })
-  }
-
   try {
+    const { image } = await request.json()
+
+    if (!image) {
+      return NextResponse.json("No image provided", { status: 400 });
+    }
+
     const completion = await openai.chat.completions.create({
       model: "gpt-4-vision-preview",
       max_tokens: 4096,
