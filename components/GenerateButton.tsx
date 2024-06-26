@@ -5,7 +5,11 @@ export default function GenerateButton() {
   const [isLoading, setIsLoading] = useState(false)
 
   async function handleGenerateHTML() {
-
+    try {
+      setIsLoading(true)
+    } catch (error) {
+      
+    }
   }
 
 
