@@ -1,17 +1,43 @@
+import { getSvgAsImage } from "@/lib/getSvgAsImage"
+import { useEditor } from "@tldraw/tldraw"
 import { CogIcon } from "lucide-react"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export default function GenerateButton() {
   const [isLoading, setIsLoading] = useState(false)
+  const editor = useEditor()
 
   async function handleGenerateHTML() {
     try {
       setIsLoading(true)
+
+      // Get the image from tldraw
+      const svg = editor.getSvg(Array.from(editor.currentPageShapeIds))
+
+      if (!svg) {
+        throw new Error("No image selected")
+      }
+
+      // Convert the svg to a base64 image
+      const png = await getSvgAsImage(svg, {
+        type: "png",
+        quality: 1, 
+        scale: 1,
+      })
+
+      // throwing an error when image is not available
+      // throw new Error("No image selected")
+
+      // toast.success("Success")
     } catch (error) {
-      
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
-
 
   return (
     <button onClick={handleGenerateHTML}
