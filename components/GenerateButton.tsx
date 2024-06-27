@@ -13,14 +13,14 @@ export default function GenerateButton() {
       setIsLoading(true)
 
       // Get the image from tldraw
-      const svg = editor.getSvg(Array.from(editor.currentPageShapeIds))
+      const svg = await editor.getSvg(Array.from(editor.currentPageShapeIds))
 
       if (!svg) {
         throw new Error("No image selected")
       }
 
       // Convert the svg to a base64 image
-      const png = await getSvgAsImage(svg, {
+      const png = await getSvgAsImage(svg!, {
         type: "png",
         quality: 1, 
         scale: 1,
