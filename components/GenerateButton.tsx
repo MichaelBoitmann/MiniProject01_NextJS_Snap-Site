@@ -1,3 +1,4 @@
+import { blobToBase64 } from "@/lib/blobToBase64"
 import { getSvgAsImage } from "@/lib/getSvgAsImage"
 import { useEditor } from "@tldraw/tldraw"
 import { CogIcon } from "lucide-react"
@@ -26,6 +27,24 @@ export default function GenerateButton() {
         scale: 1,
       })
 
+      const base64Image = await blobToBase64(png!)
+
+      // Send image to API endpoint
+      const response = await fetch('/api/generate', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ image: base64Image })
+      })
+
+      if (!response.ok) {
+        const error: string = await response.json()
+        throw new Error(error)
+      }
+
+
+      /
       // throwing an error when image is not available
       // throw new Error("No image selected")
 
