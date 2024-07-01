@@ -46,11 +46,14 @@ export default function GenerateButton() {
 
 
       const data: OpenAI.Chat.ChatCompletion = await response.json()
-      console.log(data)
       const message = data.choices[0].message.content
       // throwing an error when image is not available
       // throw new Error("No image selected")
+      if (!message) {
+        throw new Error("No response");
+      }
 
+      const html = messageToHTML(message)
       // toast.success("Success")
     } catch (error) {
       if (error instanceof Error) {
