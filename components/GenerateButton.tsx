@@ -1,12 +1,17 @@
 import { blobToBase64 } from "@/lib/blobToBase64"
 import { getSvgAsImage } from "@/lib/getSvgAsImage"
+import messageToHTML from "@/lib/messageToHTML"
 import { useEditor } from "@tldraw/tldraw"
 import { CogIcon } from "lucide-react"
 import OpenAI from "openai"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
-export default function GenerateButton() {
+type Props = {
+  setHtml;
+}
+
+export default function GenerateButton({ setHtml }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const editor = useEditor()
 

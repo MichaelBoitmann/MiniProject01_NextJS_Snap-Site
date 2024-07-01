@@ -1,16 +1,20 @@
 "use client";
 
-import { Tldraw } from "@tldraw/tldraw"
 import GenerateButton from './../components/GenerateButton';
 import PreviewModal from "@/components/PreviewModal";
+import { Tldraw } from "@tldraw/tldraw";
+import { useState } from "react";
+
 
 export default function Home() {
+  const [html, setHtml] = useState('')
+
   return (
     <>
-      <PreviewModal />
+      <PreviewModal html={html} />
       <main className="h-screen w-screen">
         <Tldraw persistenceKey="snapsite">
-          <GenerateButton />
+          <GenerateButton setHtml={setHtml}/>
         </Tldraw>
       </main>
     </>
