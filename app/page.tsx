@@ -2,7 +2,7 @@
 
 import { Tldraw } from "@tldraw/tldraw"
 import GenerateButton from './../components/GenerateButton';
-import PreviewModal from "@/components/PreviewMOdal";
+import PreviewModal from "@/components/PreviewModal";
 
 export default function Home() {
   return (
