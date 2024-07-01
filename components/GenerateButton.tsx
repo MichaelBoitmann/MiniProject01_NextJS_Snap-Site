@@ -2,6 +2,7 @@ import { blobToBase64 } from "@/lib/blobToBase64"
 import { getSvgAsImage } from "@/lib/getSvgAsImage"
 import { useEditor } from "@tldraw/tldraw"
 import { CogIcon } from "lucide-react"
+import OpenAI from "openai"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
@@ -44,7 +45,9 @@ export default function GenerateButton() {
       }
 
 
-      /
+      const data: OpenAI.Chat.ChatCompletion = await response.json()
+      console.log(data)
+      const message = data.choices[0].message.content
       // throwing an error when image is not available
       // throw new Error("No image selected")
 
