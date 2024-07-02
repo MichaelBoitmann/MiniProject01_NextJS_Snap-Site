@@ -8,7 +8,7 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 type Props = {
-  setHtml;
+  setHtml: (html: string) => void
 }
 
 export default function GenerateButton({ setHtml }: Props) {
@@ -58,7 +58,9 @@ export default function GenerateButton({ setHtml }: Props) {
         throw new Error("No response");
       }
 
-      const html = messageToHTML(message)
+      const html = messageToHTML(message);
+      setHtml(html);
+      toast.success("Success");
       // toast.success("Success")
     } catch (error) {
       if (error instanceof Error) {

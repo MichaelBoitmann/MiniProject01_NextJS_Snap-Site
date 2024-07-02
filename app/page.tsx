@@ -7,11 +7,12 @@ import { useState } from "react";
 
 
 export default function Home() {
-  const [html, setHtml] = useState('')
+  const [html, setHtml] = useState("")
+  const closeModal = () => setHtml("")
 
   return (
     <>
-      <PreviewModal html={html} />
+      {html && <PreviewModal html={html} closeModal={closeModal} />}
       <main className="h-screen w-screen">
         <Tldraw persistenceKey="snapsite">
           <GenerateButton setHtml={setHtml}/>
