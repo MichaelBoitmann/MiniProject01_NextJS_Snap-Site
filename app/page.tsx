@@ -13,6 +13,7 @@ export default function Home() {
   return (
     <>
       {html && <PreviewModal html={html} closeModal={closeModal} />}
+      
       <main className="h-screen w-screen">
         <Tldraw persistenceKey="snapsite">
           <GenerateButton setHtml={setHtml}/>
