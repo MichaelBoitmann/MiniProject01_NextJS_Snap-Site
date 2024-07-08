@@ -1,6 +1,16 @@
-import { useState } from "react"
-import { XIcon } from "lucide-react"
-import PreviewTab from "@/components/PreviewTab"
+"use client";
+
+import PreviewTab from "@/components/PreviewTab";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
+import Prism from "prismjs";
+import "prismjs/components/prism-cshtml";
+import "prismjs/themes/prism-okaidia.css";
+import { useEffect, useState } from "react";
+
+// import { useState } from "react"
+// import { XIcon } from "lucide-react"
+// import PreviewTab from "@/components/PreviewTab"
 
 type Props = {
   html: string;
@@ -10,6 +20,14 @@ type Props = {
 export default function PreviewModal({ html, closeModal }: Props) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview")
 
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [html, activeTab]);
+
+  if (!html) {
+    return null;
+  }
+
 
   return (
     <dialog className="fixed inset-0 flex justify-center items-center z-[2000] bg-black/50 h-screen w-screen">
@@ -17,13 +35,14 @@ export default function PreviewModal({ html, closeModal }: Props) {
         <header className="relative p-3 border-b">
           <div className="flex justify-center space-x-2">
             <PreviewTab 
-              active={activeTab === "preview"}
-              onClick={() => setActiveTab("preview")}
+                active={activeTab === "preview"}
+                onClick={() => setActiveTab("preview")}
             >
               Preview
             </PreviewTab>
-            <PreviewTab active={activeTab === "code"}
-            onClick={() => setActiveTab("code")}
+            <PreviewTab 
+                active={activeTab === "code"}
+                onClick={() => setActiveTab("code")}
             >
               Code
             </PreviewTab>
