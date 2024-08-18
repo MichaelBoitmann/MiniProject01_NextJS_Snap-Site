@@ -31,24 +31,24 @@ export default function GenerateButton({ setHtml }: Props) {
         quality: 1,
         scale: 1,
       });
+
       const dataUrl = await blobToBase64(png!);
 
-      // Send base64 image to API endpoint
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ image: dataUrl }),
+        body: JSON.stringify({ image: dataUrl })
       });
 
       if (!response.ok) {
-        const error = await response.json();
+        const error: string = await response.json();
         throw new Error(error);
       }
 
-      const data: OpenAI.Chat.Completions.ChatCompletion =
-        await response.json();
+      const data: OpenAI.Chat.Completions.ChatCompletion = await response.json();
+
       const message = data.choices[0].message.content;
 
       if (!message) {

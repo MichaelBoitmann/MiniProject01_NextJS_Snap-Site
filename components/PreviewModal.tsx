@@ -36,16 +36,10 @@ export default function PreviewModal({ html, closeModal }: Props) {
           <div className="flex justify-center space-x-2">
             <PreviewTab 
                 active={activeTab === "preview"}
-                onClick={() => setActiveTab("preview")}
-            >
-              Preview
-            </PreviewTab>
+                onClick={() => setActiveTab("preview")}>Preview</PreviewTab>
             <PreviewTab 
                 active={activeTab === "code"}
-                onClick={() => setActiveTab("code")}
-            >
-              Code
-            </PreviewTab>
+                onClick={() => setActiveTab("code")}>Code</PreviewTab>
           </div>
           <button onClick={closeModal} 
                   className="absolute right-3 top-3 rounded-lg hover:bg-gray-200 p-2"
